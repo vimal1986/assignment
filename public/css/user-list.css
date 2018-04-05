@@ -1,0 +1,41 @@
+.user-list h2,.profile-info h2{
+    margin: 0px;
+    font-size: 20px;
+}
+.user-list .panel-heading,.profile-info .panel-heading{
+    background: #ffffff;
+    border-top: 4px solid #10bb97;
+}
+.profile-img{
+    border: 3px solid #10bb97;
+    margin-bottom: 0px;
+    display: table;
+    width: 140px;
+    height: 123px;
+}
+.profile-img img {
+    max-height: 87px;
+}
+.middle{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.class-brands{
+    width:26%
+}
+.content{
+   /* min-height: 100vh;*/
+}
+.fanlyfe .content{
+    min-height: 90vh;
+}
+.profile .table-bordered{
+    margin-bottom: 0px;
+}
+.profile .form-horizontal .control-label{
+    text-align: left;
+    padding-top: 0px !important;
+}
+
+.spacer { margin:0; padding:0; height:20px; }
