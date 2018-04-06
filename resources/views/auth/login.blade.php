@@ -66,6 +66,11 @@
                                            href="{{ route('password.request') }}">
                                             Forgot Your Password?
                                         </a>
+                                        <a class="btn btn-link"
+                                           style="text-align: center; font-size: 11px; display: block; padding-top: 5px;"
+                                           href="{{ url('register') }}">
+                                            SIGN UP
+                                        </a>
                                     </div>
                                 </div>
                             </form>

@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -59,6 +59,32 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+
+                         <div class="form-group">
+                            <label for="password-confirm" class="col-md-4 control-label">Mobile No</label>
+
+                            <div class="col-md-6">
+                                <input id="mobile-no" type="text" class="form-control" name="mobile" required>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="password-confirm" class="col-md-4 control-label">Address</label>
+
+                            <div class="col-md-6">
+                                <textarea class="form-control" name="address" required>
+                                {{ old('address') }}
+                                </textarea>
+                                @if ($errors->has('address'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('address') }}</strong>
+                                    </span>
+                                @endif
+                                
+                            </div>
+                        </div>
+
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

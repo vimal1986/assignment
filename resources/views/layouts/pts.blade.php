@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PTS Admin Panel</title>
+    <title>Assignment</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -42,7 +42,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4" style="text-align: center; margin-bottom: 20px;">
-            <img src="{{ asset('img/pts-login-logo.png') }}" alt="PTS Logo">
+            <img src="{{ asset('img/pts-login-logo.png') }}" alt="Assignment">
         </div>
     </div>
 </div>

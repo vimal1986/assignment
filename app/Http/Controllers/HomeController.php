@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use App\Models\Product;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -13,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -23,6 +27,63 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $model = Product::getModel();
+        $prices = Product::getPrice();
+        $products=Product::getProducts();
+        return view('site.index',compact('products','prices','model'));
     }
+
+    public function productDetail($product_id){        
+        $productDetail = Product::getProductDetail($product_id);
+        return view('site.product_detail',compact('productDetail'));
+    }
+
+    public function register(){
+        return view('auth.register');
+    }
+
+    public function createUser(Request $request){
+        $rules = [
+            'name' => 'required|max:150',
+            'email' =>'required|email|unique:users,email',
+            'password' => 'min:6',
+            'password_confirmation' => 'required_with:password|same:password|min:6',
+            'mobile'  => 'required|numeric',
+            'address'  => 'sometimes|max:200'
+        ];
+
+        $validator=  Validator::make($request->all(),$rules);
+
+        if ($validator->fails()) {
+//            dd($validator);
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $result = User::updateOrCreate(
+            [
+            'id'   => $request->get('user_id',0),
+            'name' => $request->get('name'),
+            'email' =>$request->get('email'),
+            'password' => bcrypt($request->get('password')),
+            'mobile'  => $request->get('moblie'),
+            'address'  =>$request->get('address')
+            ]
+        );
+        if ($result) {
+            return redirect('login')
+                ->with(['messages' => 'User created Successfully']);
+        }
+
+        return redirect()->back()->withErrors(['errors' => 'Not Created!'])->withInput();
+    }
+
+    public function siteSearch(Request $request){
+
+        $model = Product::getModel();
+        $prices = Product::getPrice();
+        $products=Product::getProductSearch($request);
+        return view('site.index',compact('products','prices','model'));
+
+    }
+
+
 }
