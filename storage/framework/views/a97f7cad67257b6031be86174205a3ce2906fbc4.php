@@ -37,7 +37,7 @@
       </ul>
     </div>
   </div>
-</nav>
+</nav>git 
 
 	
 	<div class="container">
@@ -100,7 +100,17 @@
 	</div>
     <br>
     <footer class="container-fluid text-center footer">
-  <p>Online Store Copyright</p>  
+    <p>Online Store Copyright</p>  
+  <form class="form-inline" method="post" action="<?php echo e(url('product-enquiry')); ?>">
+  <?php echo e(csrf_field()); ?>
+
+  <input type="hidden" name="product_id"  value="<?php echo e($productDetail->id); ?>"/>
+    Get deals:
+    <input type="email" name="email" class="form-control" size="50" placeholder="Email Address">
+    <?php if($errors->has('description')): ?> 
+    <p  class="help-block"><?php echo e($errors->first('email')); ?></p> <?php endif; ?>
+    <input type="submit" value="submit" class="btn btn-danger"/>
+  </form> 
   
 </footer>
   </body>

@@ -37,7 +37,7 @@
       </ul>
     </div>
   </div>
-</nav>git 
+</nav>
 
 	
 	<div class="container">
@@ -96,7 +96,16 @@
 	</div>
     <br>
     <footer class="container-fluid text-center footer">
-  <p>Online Store Copyright</p>  
+    <p>Online Store Copyright</p>  
+  <form class="form-inline" method="post" action="{{url('product-enquiry')}}">
+  {{csrf_field()}}
+  <input type="hidden" name="product_id"  value="{{$productDetail->id}}"/>
+    Get deals:
+    <input type="email" name="email" class="form-control" size="50" placeholder="Email Address">
+    @if($errors->has('description')) 
+    <p  class="help-block">{{$errors->first('email')}}</p> @endif
+    <input type="submit" value="submit" class="btn btn-danger"/>
+  </form> 
   
 </footer>
   </body>

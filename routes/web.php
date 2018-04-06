@@ -31,6 +31,8 @@ Route::get('/site', 'HomeController@index')->name('site-index');
 
 Route::post('/site', 'HomeController@siteSearch');
 
+Route::post('/product-enquiry', 'HomeController@productEnquiry');
+
 Route::get('/register', 'HomeController@register')->name('register');
 Route::post('/register', 'HomeController@createUser');
 

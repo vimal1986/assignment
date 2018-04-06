@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use App\Models\Product;
 use App\User;
+use App\Models\UserEnquiry;
 
 class HomeController extends Controller
 {
@@ -83,6 +84,33 @@ class HomeController extends Controller
         $products=Product::getProductSearch($request);
         return view('site.index',compact('products','prices','model'));
 
+    }
+
+
+    public function productEnquiry(Request $request){
+        $rules = [
+            'product_id' => 'required|numeric',
+            'email' =>'required|email'
+        ];
+
+        $validator=  Validator::make($request->all(),$rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $result = UserEnquiry::updateOrCreate(
+            [
+                'product_id' => $request->get('product_id'),
+                'email' =>$request->get('email')
+            ]
+        );
+
+        if ($result) {
+            return redirect('site')
+                ->with(['messages' => 'Sent Successfully']);
+        }
+
+        return redirect()->back()->withErrors(['errors' => 'Not Created!'])->withInput();
     }
 
 
