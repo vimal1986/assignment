@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/site', 'Api\Version1\HomeController@index')->name('site-index');
 
-Route::post('/site', 'Api\Version1\HomeController@siteSearch');
+Route::get('/site-search', 'Api\Version1\HomeController@siteSearch');
 
 Route::post('/product-enquiry', 'Api\Version1\HomeController@productEnquiry');
 

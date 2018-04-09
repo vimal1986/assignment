@@ -180,9 +180,50 @@ class Product extends Model
 
     public static function getProductSearch(Request $request){
         $result = self::where('is_active',1);
+        // dd($request->all());
         if($request->get('model')) $result->where('model',trim($request->get('model')));
         if($request->get('type')) $result->where('type',trim($request->get('type')));
-        if($request->get('price')) $result->where('price',trim($request->get('price')));
+        if($request->get('min_price')) $result->whereBetween('price', array($request->get('min_price'), $request->get('max_price')));
+        // dd($result->toSql());
         return $result->get()->toArray();
+    }
+
+    public static function getProductByImage(){
+        $result = self::where('is_active',1)->get();
+        $data = [];
+        if($result){
+            foreach($result as $res){
+                $data[]=[
+                    'id'=> $res->id,
+                    'title' => $res->title,
+                    'description' =>$res->description,
+                    'image_path'  => [asset($res->image_path),asset($res->image_path),asset($res->image_path)]
+                ];
+            }
+           
+            return $data;
+        }
+
+    }
+
+    public static function getProductDetailAPI($id){
+        $result = self::where('id',$id)->first();
+        $data=[];
+        if($result){
+         $data= [  
+             'user_id'=>$result->user_id,
+            'title'=>$result->title,
+            'year'=>$result->year,
+            'make'=>$result->make,
+            'model'=>$result->model,
+            'description'=>$result->description,
+            'price'=>$result->price,
+            'other_information'=>$result->other_information,
+            'image_path'=>[asset($result->image_path),asset($result->image_path)],
+            'type'=>$result->type,
+            'is_active'=>$result->is_active
+         ];
+        }
+        return $data;
     }
 }

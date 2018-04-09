@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\Models\Product;
 use App\User;
 use App\Models\UserEnquiry;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
@@ -31,12 +32,13 @@ class HomeController extends Controller
         try{
             $model = Product::getModel();
             $prices = Product::getPrice();
-            $products=Product::getProducts();
+           // dd("dsf");
+            $products=Product::getProductByImage();
             return response()->json(['status'=>true,
             'status_code'=>200,
             'data'=>[
-                'model'=>$model,
-                'price'=>$prices,
+               // 'model'=>$model,
+               // 'price'=>$prices,
                 'products'=>$products
             ]
             ]);
@@ -52,12 +54,16 @@ class HomeController extends Controller
 
     public function productDetail($product_id){  
         try{
-            $productDetail = Product::getProductDetail($product_id);
+            $productDetail = Product::getProductDetailAPI($product_id);
+            $rating = UserEnquiry::getReview($product_id);
+            //$model = Product::getModel();
+            //$prices = Product::getPrice();
             return response()->json(['status'=>true,
             'status_code'=>200,
             'data'=>[
-                'model'=>$model,
-                'price'=>$prices,
+                //'model'=>$model,
+                //'price'=>$prices,
+                'rating'=>$rating['sum_rating'][0]?($rating['sum_rating'][0])/($rating['count_rating'][0]):0,
                 'productDetail'=>$productDetail
             ]
             ]);
@@ -126,18 +132,17 @@ class HomeController extends Controller
         
     }
 
-    public function siteSearch(Request $request){
-
-
+    public function siteSearch(Request $request){  
+            
         try{
-            $model = Product::getModel();
+        $model = Product::getModel();
         $prices = Product::getPrice();
         $products=Product::getProductSearch($request);
             return response()->json(['status'=>true,
             'status_code'=>200,
             'data'=>[
-                'model'=>$model,
-                'price'=>$prices,
+                //'model'=>$model,
+                //'price'=>$prices,
                 'productDetail'=>$products
             ]
             ]);
@@ -146,12 +151,8 @@ class HomeController extends Controller
             'status_code'=>500,
             'message'=>"Server Error"
             ]);
-        }      
+        }             
         
-
-        
-        
-
     }
 
 
@@ -159,7 +160,8 @@ class HomeController extends Controller
         try{
             $rules = [
                 'product_id' => 'required|numeric',
-                'email' =>'required|email'
+                'email' =>'required|email',
+                'email' =>'sometimes|numeric'
             ];
     
             $validator=  Validator::make($request->all(),$rules);
