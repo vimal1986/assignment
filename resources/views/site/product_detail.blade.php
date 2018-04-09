@@ -64,6 +64,23 @@
 					</div>
 					<div class="details col-md-6">
 						<h3 class="product-title">{{$productDetail->title??''}}</h3>
+
+            <div class="rating">
+							<div class="stars">
+              @if(isset($data['count_rating'][0]))
+                @for($i=0;$i<$data['count_rating'][0];$i++)
+                <span class="fa fa-star checked"></span>
+                @endfor
+              @endif
+
+              @if(isset($data['count_rating'][0]))
+                @for($i=0;$i<(5-$data['count_rating'][0]);$i++)
+                <span class="fa fa-star"></span>
+                @endfor
+              @endif
+							</div>
+							<span class="review-no">{{$data['count_rating'][0]??0}} reviews</span>
+						</div>
 				
 						<p class="product-description">
                 {{$productDetail->description??''}}
@@ -104,6 +121,15 @@
     <input type="email" name="email" class="form-control" size="50" placeholder="Email Address">
     @if($errors->has('description')) 
     <p  class="help-block">{{$errors->first('email')}}</p> @endif
+
+ Rating: <select name="rating">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
     <input type="submit" value="submit" class="btn btn-danger"/>
   </form> 
   

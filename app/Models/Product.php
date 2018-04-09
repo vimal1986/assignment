@@ -43,6 +43,10 @@ class Product extends Model
         return $this->belongsTo('App\User');
     }
    
+    public function user_enquiries()
+    {
+        return $this->hasMany('App\Model\UserEnquiry');
+    }
     public static function getRules()
     {
         $rules = [

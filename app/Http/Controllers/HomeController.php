@@ -36,7 +36,8 @@ class HomeController extends Controller
 
     public function productDetail($product_id){        
         $productDetail = Product::getProductDetail($product_id);
-        return view('site.product_detail',compact('productDetail'));
+        $data = UserEnquiry::getReview($product_id);
+        return view('site.product_detail',compact('productDetail','data'));
     }
 
     public function register(){
@@ -90,7 +91,8 @@ class HomeController extends Controller
     public function productEnquiry(Request $request){
         $rules = [
             'product_id' => 'required|numeric',
-            'email' =>'required|email'
+            'email' =>'required|email',
+            'rating'=>'sometimes|numeric'
         ];
 
         $validator=  Validator::make($request->all(),$rules);
@@ -101,7 +103,8 @@ class HomeController extends Controller
         $result = UserEnquiry::updateOrCreate(
             [
                 'product_id' => $request->get('product_id'),
-                'email' =>$request->get('email')
+                'email' =>$request->get('email'),
+                'rating' =>$request->get('rating',0)
             ]
         );
 

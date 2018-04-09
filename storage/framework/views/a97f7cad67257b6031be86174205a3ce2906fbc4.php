@@ -37,7 +37,7 @@
       </ul>
     </div>
   </div>
-</nav>git 
+</nav>
 
 	
 	<div class="container">
@@ -64,6 +64,23 @@
 					</div>
 					<div class="details col-md-6">
 						<h3 class="product-title"><?php echo e($productDetail->title??''); ?></h3>
+
+            <div class="rating">
+							<div class="stars">
+              <?php if(isset($data['count_rating'][0])): ?>
+                <?php for($i=0;$i<$data['count_rating'][0];$i++): ?>
+                <span class="fa fa-star checked"></span>
+                <?php endfor; ?>
+              <?php endif; ?>
+
+              <?php if(isset($data['count_rating'][0])): ?>
+                <?php for($i=0;$i<(5-$data['count_rating'][0]);$i++): ?>
+                <span class="fa fa-star"></span>
+                <?php endfor; ?>
+              <?php endif; ?>
+							</div>
+							<span class="review-no"><?php echo e($data['count_rating'][0]??0); ?> reviews</span>
+						</div>
 				
 						<p class="product-description">
                 <?php echo e($productDetail->description??''); ?>
@@ -109,6 +126,15 @@
     <input type="email" name="email" class="form-control" size="50" placeholder="Email Address">
     <?php if($errors->has('description')): ?> 
     <p  class="help-block"><?php echo e($errors->first('email')); ?></p> <?php endif; ?>
+
+ Rating: <select name="rating">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+  </select>
     <input type="submit" value="submit" class="btn btn-danger"/>
   </form> 
   

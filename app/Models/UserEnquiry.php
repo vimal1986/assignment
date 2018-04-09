@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Image;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 
 class UserEnquiry extends Model
 {
@@ -15,7 +16,8 @@ class UserEnquiry extends Model
     public $active;
     protected $table = 'user_enquiries';
     protected $fillable = ['email',
-        'product_id'
+        'product_id',
+        'rating'
     ];
     protected $with = [
     ];
@@ -24,6 +26,7 @@ class UserEnquiry extends Model
 
     public static $directory = '/products';
 
+    
     public static function dir()
     {
         return self::$directory;
@@ -34,5 +37,20 @@ class UserEnquiry extends Model
         return $this->belongsTo('App\Model\Product');
     }
    
+    public static function getReview($product_id){
+
+        $sum_rating = self::selectRaw('product_id, sum(rating) as sum')
+        ->where('product_id', $product_id)
+        ->groupBy('product_id')
+        ->pluck('sum');
+
+        $count_rating = self::selectRaw('product_id, count(rating) as sum')
+        ->where('product_id', $product_id)
+        ->groupBy('product_id')
+        ->pluck('sum');
+        
+        return ['sum_rating'=>$sum_rating,'count_rating'=>$count_rating];
+
+    }
    
 }
