@@ -89,7 +89,8 @@ CREATE TABLE `products` (
   `price` int(10) DEFAULT NULL,
   `type` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id` (`id`)
+  KEY `id` (`id`),
+  KEY `type_product` (`type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -101,6 +102,34 @@ LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` VALUES (1,1,'Test',56,'dsfg','dfg','dfg',NULL,'dfg','0',NULL,'2018-04-06 02:35:19','2018-04-06 02:59:27','uploads/products/img_thumb_5ac72dd427bdc.jpeg',1223,NULL),(2,1,'Bike',456,'QW10247','NO-7415','Desc',NULL,'fgh','1',NULL,'2018-04-06 02:44:19','2018-04-06 06:25:15','uploads/products/img_thumb_5ac72c5b06e6b.jpeg',768,'bike'),(3,1,'CAR',1987,'RT-123','RT9878','sdf',NULL,'sdg','1',NULL,'2018-04-06 05:26:10','2018-04-06 05:26:10','uploads/products/img_thumb_5ac7524a2cc6e.jpeg',3457,NULL);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `type`
+--
+
+DROP TABLE IF EXISTS `type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `address` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `type`
+--
+
+LOCK TABLES `type` WRITE;
+/*!40000 ALTER TABLE `type` DISABLE KEYS */;
+/*!40000 ALTER TABLE `type` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -117,9 +146,10 @@ CREATE TABLE `user_enquiries` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `rating` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +158,7 @@ CREATE TABLE `user_enquiries` (
 
 LOCK TABLES `user_enquiries` WRITE;
 /*!40000 ALTER TABLE `user_enquiries` DISABLE KEYS */;
-INSERT INTO `user_enquiries` VALUES (1,'required|email','required|numeric',NULL,'2018-04-06 07:20:13','2018-04-06 07:20:13'),(2,'alex@admin.com','3',NULL,'2018-04-06 07:21:48','2018-04-06 07:21:48');
+INSERT INTO `user_enquiries` VALUES (1,'bob@mail.com','2',NULL,'2018-04-06 07:20:13','2018-04-09 04:14:02',2),(2,'alex@admin.com','3',NULL,'2018-04-06 07:21:48','2018-04-06 07:21:48',NULL),(3,'vimal.ram1@brtindia.com','2',NULL,'2018-04-08 22:41:46','2018-04-08 22:41:46',1);
 /*!40000 ALTER TABLE `user_enquiries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,4 +206,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-06 18:49:45
+-- Dump completed on 2018-04-09 11:21:56
