@@ -161,7 +161,8 @@ class HomeController extends Controller
             $rules = [
                 'product_id' => 'required|numeric',
                 'email' =>'required|email',
-                'email' =>'sometimes|numeric'
+                'rating' =>'sometimes|numeric',
+                'comments'=>'sometimes|max:450'
             ];
     
             $validator=  Validator::make($request->all(),$rules);
@@ -176,7 +177,9 @@ class HomeController extends Controller
             $result = UserEnquiry::updateOrCreate(
                 [
                     'product_id' => $request->get('product_id'),
-                    'email' =>$request->get('email')
+                    'email' =>$request->get('email'),
+                    'rating' =>$request->get('rating',0),
+                    'comments' =>$request->get('comments','')
                 ]
             );
     

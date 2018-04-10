@@ -17,7 +17,8 @@ class UserEnquiry extends Model
     protected $table = 'user_enquiries';
     protected $fillable = ['email',
         'product_id',
-        'rating'
+        'rating',
+        'comments'
     ];
     protected $with = [
     ];
